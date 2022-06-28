@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class HitungAlternatif extends javax.swing.JFrame {
     Object listKriteria[][];
+    Object listKriteriaNorm[][];
     public int rowAlt;
 
     /**
@@ -20,7 +21,15 @@ public class HitungAlternatif extends javax.swing.JFrame {
      */
     public HitungAlternatif(Object listKriteria[][] , int rowAlt1) {
         this.listKriteria = listKriteria;
+        this.listKriteriaNorm = listKriteria;
         this.rowAlt = rowAlt1;
+        double totalValue = 0;
+        for (int i = 0; i < listKriteria.length; i++) {
+            totalValue += Double.parseDouble(String.valueOf(listKriteria[i][1]));
+        }
+        for (int i = 0; i < listKriteria.length; i++) {
+            this.listKriteriaNorm[i][1] = Double.parseDouble(String.valueOf(listKriteria[i][1])) / totalValue;
+        }
         initComponents();
     }
      
@@ -136,13 +145,51 @@ public class HitungAlternatif extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tb_alternatif.getModel();
         if (model.getRowCount() > 0) {
             Object alternatif[][] = new Object[model.getRowCount()][model.getColumnCount()];
+            Double minmax[][] = new Double[2][model.getColumnCount()];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    minmax[i][j] = 0.0;
+                }
+            }
             for (int i = 0; i < model.getRowCount(); i++) {
                 for (int j = 0; j < model.getColumnCount(); j++) {
                     alternatif[i][j] = model.getValueAt(i, j);
+                    if (j != 0) {
+                        if (minmax[0][j] < Double.parseDouble(String.valueOf(alternatif[i][j]))) {
+                            minmax[0][j] = Double.parseDouble(String.valueOf(alternatif[i][j]));
+                        }
+                        if (i == 0) {
+                            minmax[1][j] = Double.parseDouble(String.valueOf(alternatif[i][j]));
+                        } else {
+                            if (minmax[1][j] > Double.parseDouble(String.valueOf(alternatif[i][j]))) {
+                                minmax[1][j] = Double.parseDouble(String.valueOf(alternatif[i][j]));
+                            }
+                        }
+                    }
                 }
             }
-            System.out.println(alternatif[0][0]+" "+alternatif[0][1]);
-            System.out.println(alternatif[1][0]+" "+alternatif[1][1]);
+            Object utilityValue[][] = new Object[model.getRowCount()][model.getColumnCount()];
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    if (j != 0) {
+                        utilityValue[i][j] = (Double.parseDouble(String.valueOf(alternatif[i][j])) - minmax[1][j]) / (minmax[0][j] - minmax[1][j]);
+                    } else {
+                        utilityValue[i][j] = model.getValueAt(i, j);
+                    }
+                }
+            }
+            for (int i = 0; i < minmax.length; i++) {
+                for (int j = 0; j < minmax[0].length; j++) {
+                    System.out.print(minmax[i][j] + " | ");
+                }
+                System.out.println();
+            }
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    System.out.print(utilityValue[i][j] + " | ");
+                }
+                System.out.println();
+            }
 
         }
     }//GEN-LAST:event_btn_hitungActionPerformed
