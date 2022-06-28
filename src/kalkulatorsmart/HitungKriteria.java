@@ -189,8 +189,7 @@ public class HitungKriteria extends javax.swing.JFrame {
                 for (int j = 0; j < model.getColumnCount(); j++) {
                     data[i][j] = model.getValueAt(i, j);
                 }
-            }
-            
+            }            
             rowAlt= Integer.parseInt(tf_jml_alternatif.getText());
 
             HitungAlternatif hitungAlternatif = new HitungAlternatif(data , rowAlt);

@@ -36,6 +36,8 @@ public class HitungAlternatif extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_alternatif = new javax.swing.JTable();
         btn_hapus = new javax.swing.JButton();
+        btn_tambah = new javax.swing.JButton();
+        btn_hitung = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,15 +57,32 @@ public class HitungAlternatif extends javax.swing.JFrame {
             }
         });
 
+        btn_tambah.setText("Tambah Alternatif");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
+
+        btn_hitung.setText("Hitung Rangking");
+        btn_hitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hitungActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1224, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_hitung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1216, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -73,18 +92,21 @@ public class HitungAlternatif extends javax.swing.JFrame {
                 .addGap(0, 25, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btn_tambah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_hapus)
+                .addGap(57, 57, 57)
+                .addComponent(btn_hitung)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void tb_alternatif(Object obj[][]){
-        Object columns [] =new String[(obj.length/2)+2];
-        String data [][] = new String[rowAlt][(obj.length/2)+2];
-        System.out.print(rowAlt);
+        Object columns [] =new String[(obj.length)+1];
+        String data [][] = new String[rowAlt][(obj.length)+1];
         for(int i = 0; i < obj.length;i++){
-            for(int j = 0; j<obj[i].length;j++){
+            for(int j = 0; j<2;j++){
                 if(j == 0){
                     columns[0] = "Nama Alternatif";
                     columns[i+1] = obj[i][0];
@@ -105,9 +127,31 @@ public class HitungAlternatif extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_hapusActionPerformed
 
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tb_alternatif.getModel();
+        model.addRow(new Object[]{});
+    }//GEN-LAST:event_btn_tambahActionPerformed
+
+    private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tb_alternatif.getModel();
+        if (model.getRowCount() > 0) {
+            Object alternatif[][] = new Object[model.getRowCount()][model.getColumnCount()];
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    alternatif[i][j] = model.getValueAt(i, j);
+                }
+            }
+            System.out.println(alternatif[0][0]+" "+alternatif[0][1]);
+            System.out.println(alternatif[1][0]+" "+alternatif[1][1]);
+
+        }
+    }//GEN-LAST:event_btn_hitungActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_hapus;
+    private javax.swing.JButton btn_hitung;
+    private javax.swing.JButton btn_tambah;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tb_alternatif;
     // End of variables declaration//GEN-END:variables
