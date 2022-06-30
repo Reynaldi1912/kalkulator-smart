@@ -184,18 +184,6 @@ public class HitungAlternatif extends javax.swing.JFrame {
                     }
                 }
             }
-            for (int i = 0; i < minmax.length; i++) {
-                for (int j = 0; j < minmax[0].length; j++) {
-                    System.out.print(minmax[i][j] + " | ");
-                }
-                System.out.println();
-            }
-            for (int i = 0; i < model.getRowCount(); i++) {
-                for (int j = 0; j < model.getColumnCount(); j++) {
-                    System.out.print(utilityValue[i][j] + " | ");
-                }
-                System.out.println();
-            }
 
             Object result[][] = new Object[model.getRowCount()][model.getColumnCount()];
             for (int i = 0; i < utilityValue.length; i++) {
@@ -208,14 +196,6 @@ public class HitungAlternatif extends javax.swing.JFrame {
                 }
             }
             
-            System.out.println("");
-
-            for (int i = 0; i < result.length; i++) {
-                for (int j = 0; j < result[i].length; j++) {
-                    System.out.print(result[i][j] + " | ");
-                }
-                System.out.println();
-            }
             HasilForm hasilForm = new HasilForm(result);
             this.setVisible(false);
             hasilForm.setVisible(true);

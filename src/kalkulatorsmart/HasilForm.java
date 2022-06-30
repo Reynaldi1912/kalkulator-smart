@@ -25,26 +25,33 @@ public class HasilForm extends javax.swing.JFrame {
      public void rangking(Object obj[][]){
         Object columns[] = {"Alternatif","Total","Rangking"};
         Object data[][] = new Object[obj.length][3];
+        Object dataTemp[][] = new Object[obj.length][3];
         double hasil;
-        double rank[] = new double[obj.length];
         for (int i = 0; i < obj.length; i++) {
             data[i][0] = obj[i][0];
+            dataTemp[i][0] = obj[i][0];
             hasil=0;
-            for (int j = 1; j < obj.length; j++) {
+            for (int j = 1; j < obj[0].length; j++) {
                 hasil += Double.parseDouble(String.valueOf(obj[i][j]));
             }
             data[i][1] = hasil;
-            rank[i] = hasil;
+            dataTemp[i][1] = hasil;
         }
-        Arrays.sort(rank);
-        int k = 6;
-        for(int i =0; i<obj.length ; i++){
-            for(int j = 0 ; j<obj.length ; j++){
-                if(rank[i] == Double.parseDouble(String.valueOf(data[j][1]))){
-                    data[i][2] = k;
+        
+        int ranking = 1;
+        double temp = 0;
+        for(int i =0; i<dataTemp.length ; i++){
+            int index = 0;
+            for(int j = 0 ; j<dataTemp.length ; j++){
+                if(temp < Double.parseDouble(String.valueOf(dataTemp[j][1]))) {
+                    index = j;
+                    temp = Double.parseDouble(String.valueOf(dataTemp[j][1]));
                 }
             }
-            k--;
+            dataTemp[index][1] = 0;
+            data[index][2] = ranking;
+            temp = 0;
+            ranking++;
         }
         
 
