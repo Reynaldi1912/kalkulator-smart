@@ -1,29 +1,28 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package kalkulatorsmart;
 
-import javax.swing.table.DefaultTableModel;
 import java.util.Arrays;
-import java.util.Collections;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ASUS
  */
-public class HasilForm extends javax.swing.JPanel {
+public class HasilForm extends javax.swing.JFrame {
 
-    Object hasilRangking[][];
     /**
-     * Creates new form HasilForm
+     * Creates new form HasilFormm
      */
-    public HasilForm(Object hasilRangking[][]) {
+    Object hasilRangking[][];
+     public HasilForm(Object hasilRangking[][]) {
         initComponents();
         this.hasilRangking = hasilRangking;
     }
-    
-    public void rangking(Object obj[][]){
+     
+     public void rangking(Object obj[][]){
         Object columns[] = {"Alternatif","Total","Rangking"};
         Object data[][] = new Object[obj.length][3];
         double hasil;
@@ -65,6 +64,8 @@ public class HasilForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_hasil = new javax.swing.JTable();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         tbl_hasil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -78,18 +79,26 @@ public class HasilForm extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tbl_hasil);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
