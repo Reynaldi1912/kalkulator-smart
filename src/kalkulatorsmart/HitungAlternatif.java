@@ -216,6 +216,10 @@ public class HitungAlternatif extends javax.swing.JFrame {
                 }
                 System.out.println();
             }
+            HasilForm hasilForm = new HasilForm(result);
+            this.setVisible(false);
+            hasilForm.setVisible(true);
+            hasilForm.rangking(result);
 
         }
     }//GEN-LAST:event_btn_hitungActionPerformed
