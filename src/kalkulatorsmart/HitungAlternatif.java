@@ -11,18 +11,24 @@ import javax.swing.table.DefaultTableModel;
  * @author genad
  */
 public class HitungAlternatif extends javax.swing.JFrame {
+
     Object listKriteria[][];
     Object listKriteriaNorm[][];
+    Object avgData[][];
     public int rowAlt;
 
     /**
      * Creates new form HitungAlternatif
+     *
      * @param listKriteria
+     * @param rowAlt1
+     * @param avgData
      */
-    public HitungAlternatif(Object listKriteria[][] , int rowAlt1) {
+    public HitungAlternatif(Object listKriteria[][], int rowAlt1, Object avgData[][]) {
         this.listKriteria = listKriteria;
         this.listKriteriaNorm = listKriteria;
         this.rowAlt = rowAlt1;
+        this.avgData = avgData;
         double totalValue = 0;
         for (int i = 0; i < listKriteria.length; i++) {
             totalValue += Double.parseDouble(String.valueOf(listKriteria[i][1]));
@@ -32,7 +38,7 @@ public class HitungAlternatif extends javax.swing.JFrame {
         }
         initComponents();
     }
-     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,22 +117,22 @@ public class HitungAlternatif extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void tb_alternatif(Object obj[][]){
-        Object columns [] =new String[(obj.length)+1];
-        String data [][] = new String[rowAlt][(obj.length)+1];
-        for(int i = 0; i < obj.length;i++){
-            for(int j = 0; j<2;j++){
-                if(j == 0){
+    public void tb_alternatif(Object obj[][]) {
+        Object columns[] = new String[(obj.length) + 1];
+        String data[][] = new String[rowAlt][(obj.length) + 1];
+        for (int i = 0; i < obj.length; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (j == 0) {
                     columns[0] = "Nama Alternatif";
-                    columns[i+1] = obj[i][0];
+                    columns[i + 1] = obj[i][0];
                 }
             }
         }
-       DefaultTableModel model = new DefaultTableModel(data,columns);
-       tb_alternatif.setModel(model);
+        DefaultTableModel model = new DefaultTableModel(data, columns);
+        tb_alternatif.setModel(model);
     }
     private void tb_alternatifPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tb_alternatifPropertyChange
-        
+
     }//GEN-LAST:event_tb_alternatifPropertyChange
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
@@ -191,10 +197,30 @@ public class HitungAlternatif extends javax.swing.JFrame {
                 System.out.println();
             }
 
+            Object result[][] = new Object[model.getRowCount()][model.getColumnCount()];
+            for (int i = 0; i < utilityValue.length; i++) {
+                for (int j = 0; j < utilityValue[i].length; j++) {
+                    if (j > 0) {
+                        result[i][j] = Double.parseDouble(utilityValue[i][j].toString()) * Double.parseDouble(avgData[1][j - 1].toString());
+                    } else {
+                        result[i][j] = utilityValue[i][j];
+                    }
+                }
+            }
+            
+            System.out.println("");
+
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[i].length; j++) {
+                    System.out.print(result[i][j] + " | ");
+                }
+                System.out.println();
+            }
+
         }
     }//GEN-LAST:event_btn_hitungActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_hitung;

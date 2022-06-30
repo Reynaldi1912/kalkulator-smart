@@ -17,6 +17,7 @@ public class HitungKriteria extends javax.swing.JFrame {
      * Creates new form KalkulatorSmart
      */
     public int rowAlt = 0;
+
     public HitungKriteria() {
         initComponents();
     }
@@ -183,16 +184,39 @@ public class HitungKriteria extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tbl_alternatif.getModel();
 
         if (model.getRowCount() > 0) {
+            float totalCriteria = 0;
 
             Object data[][] = new Object[model.getRowCount()][model.getColumnCount()];
             for (int i = 0; i < model.getRowCount(); i++) {
                 for (int j = 0; j < model.getColumnCount(); j++) {
                     data[i][j] = model.getValueAt(i, j);
+                    if (j == 1) {
+                        totalCriteria += Float.valueOf(model.getValueAt(i, j).toString());
+                    }
                 }
-            }            
-            rowAlt= Integer.parseInt(tf_jml_alternatif.getText());
+            }
 
-            HitungAlternatif hitungAlternatif = new HitungAlternatif(data , rowAlt);
+            Object avgData[][] = new Object[model.getRowCount()][model.getColumnCount()];
+            for (int i = 0; i < model.getRowCount(); i++) {
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    if (j == 1) {
+                        avgData[i][j] = (float) Float.parseFloat(model.getValueAt(i, j).toString())/totalCriteria;
+                    } else {
+                        avgData[i][j] = model.getValueAt(i, j);
+                    }
+                }
+            }
+
+            Object avgDataTranspose[][] = new Object[model.getColumnCount()][model.getRowCount()];
+            for (int i = 0; i < avgData.length; i++) {
+                for (int j = 0; j < avgData[i].length; j++) {
+                    avgDataTranspose[j][i] = avgData[i][j];
+                }
+            }
+
+            rowAlt = Integer.parseInt(tf_jml_alternatif.getText());
+
+            HitungAlternatif hitungAlternatif = new HitungAlternatif(data, rowAlt, avgDataTranspose);
             this.setVisible(false);
             hitungAlternatif.setVisible(true);
             hitungAlternatif.tb_alternatif(data);
